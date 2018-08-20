@@ -1,0 +1,58 @@
+//用队列实现栈结构
+#include<iostream>
+#include<stdlib.h>
+#include<queue>
+using namespace std;
+
+typedef int stackEntry;
+
+class stack
+{
+public:
+	void push(stackEntry x);
+	void pop();
+	stackEntry peek();
+private:
+	queue<int> data;
+	queue<int> help;
+};
+
+int main()
+{
+	stack a;
+	a.push(10);
+	a.push(20);
+	a.push(30);
+	a.pop();
+	cout << a.peek() << endl;
+	system("pause");
+	return 0;
+}
+
+void stack::push(stackEntry x)
+{
+	data.push(x);
+}
+
+void stack::pop()
+{
+	while (data.size() > 1)
+	{
+		help.push(data.front());
+		data.pop();
+	}
+	data.pop();
+	data.swap(help);
+}
+
+stackEntry stack::peek()
+{
+	while (data.size() > 1)
+	{
+		help.push(data.front());
+		data.pop();
+	}
+	int x = data.front();
+	data.swap(help);
+	return x;
+}
